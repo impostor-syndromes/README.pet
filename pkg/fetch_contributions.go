@@ -2,13 +2,15 @@ package pkg
 
 import (
 	"context"
-	"encoding/json"
+	"errors"
 	"time"
 
 	"github.com/machinebox/graphql"
 
 	"README.pet/config"
 )
+
+const validDays = 10
 
 type ResponseStruct struct {
 	User struct {
@@ -25,7 +27,7 @@ type ResponseStruct struct {
 	} `json:"user"`
 }
 
-func FetchContributions(account string) (string, error) {
+func FetchContributions(account string) ([]int, error) {
 	client := graphql.NewClient("https://api.github.com/graphql")
 
 	req := graphql.NewRequest(`
@@ -60,21 +62,27 @@ func FetchContributions(account string) (string, error) {
 
 	var respData ResponseStruct
 	if err := client.Run(ctx, req, &respData); err != nil {
-		return "", err
+		return nil, err
 	}
 
-	response, err := json.Marshal(respData)
-	if err != nil {
-		return "", err
+	contributions := []int{}
+	for _, week := range respData.User.ContributionsCollection.ContributionCalendar.Weeks {
+		for _, day := range week.ContributionDays {
+			contributions = append(contributions, day.ContributionCount)
+		}
 	}
 
-	return string(response), nil
+	if len(contributions) != validDays {
+		return nil, errors.New("contributions count do not match")
+	}
+
+	return contributions, nil
 }
 
 func getDates() (string, string) {
 	now := time.Now()
 
-	startDate := now.AddDate(0, 0, -10).Format("2006-01-02T") + "00:00:00Z"
+	startDate := now.AddDate(0, 0, -validDays+1).Format("2006-01-02T") + "00:00:00Z"
 	endDate := now.Format("2006-01-02T15:04:05Z")
 
 	return startDate, endDate
