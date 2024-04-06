@@ -2,9 +2,10 @@ name: Deploy Cloud Functions
 on:
   # 手動ormainブランチにpush時に実行
   workflow_dispatch:
-  push:
+  pull_request:
     branches:
       - main
+    types: [closed]
 
 jobs:
   deploy-job:
