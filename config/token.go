@@ -9,6 +9,7 @@ type Config struct {
 	Token string `json:"token"`
 }
 
+// config/token.jsonからGithubのトークンを読み込む
 func LoadToken() string {
 	var config Config
 	file, err := os.Open("config/token.json")
