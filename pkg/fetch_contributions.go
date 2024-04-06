@@ -3,6 +3,7 @@ package pkg
 import (
 	"context"
 	"encoding/json"
+	"time"
 
 	"github.com/machinebox/graphql"
 
@@ -44,9 +45,11 @@ func FetchContributions(account string) (string, error) {
 		}
 	`)
 
+	startDate, endDate := getDates()
+
 	req.Var("userName", account)
-	req.Var("startDate", "2024-04-01T00:00:00Z")
-	req.Var("endDate", "2024-04-07T23:59:59Z")
+	req.Var("startDate", startDate)
+	req.Var("endDate", endDate)
 
 	token := config.LoadToken()
 
@@ -65,4 +68,13 @@ func FetchContributions(account string) (string, error) {
 	}
 
 	return string(response), nil
+}
+
+func getDates() (string, string) {
+	now := time.Now()
+
+	startDate := now.AddDate(0, 0, -10).Format("2006-01-02T") + "00:00:00Z"
+	endDate := now.Format("2006-01-02T15:04:05Z")
+
+	return startDate, endDate
 }
