@@ -3,6 +3,7 @@ package pkg
 import (
 	"fmt"
 )
+
 func GenerateSVG(number int) string {
 	const template = `<svg xmlns="http://www.w3.org/2000/svg">
 	<!-- 外側の丸みのある長方形 -->
@@ -16,7 +17,9 @@ func GenerateSVG(number int) string {
 	<text x="79" y="90">%d</text>
 	<!-- 猫画像 -->
 	<image x="170" y="20" width="90" height="80" href="/assets/neko.png" />
-  </svg>` 
+	<!-- キラキラ -->
+	<image x="240" y="15" width="40" height="40" href="/assets/stars.png" />
+  </svg>`
 	svg := fmt.Sprintf(template, number)
 	return svg
 }
