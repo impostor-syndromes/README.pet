@@ -1,0 +1,49 @@
+name: Deploy Cloud Functions
+on:
+  # 手動ormainブランチにpush時に実行
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  deploy-job:
+    runs-on: 'ubuntu-latest'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      # ソースコードのチェックアウトをする
+    - uses: 'actions/checkout@v4'
+
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      # Workload Identity連携を利用してGitHub ActionsからGoogle Cloudへ認証を行う
+      uses: 'google-github-actions/auth@v2'
+      with:
+        # ex) workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
+        # ex) 'my-service-account@my-project.iam.gserviceaccount.com'
+        service_account: gha-cloudfunctions-deploy@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
+
+    - name: 'Set up Cloud SDK'
+      # gcloudコマンドを実行するためにCloud SDKを準備する
+      uses: 'google-github-actions/setup-gcloud@v2'
+      with:
+        version: '>= 363.0.0'
+
+    - name: 'Deploy Cloud Functions gen2 Using gcloud command'
+      # gcloudコマンドを利用してCloud Functionsをデプロイする
+      run: >-
+        gcloud functions deploy ${{ vars.CLOUD_FUNCTIONS_ID }}
+        --gen2
+        --runtime=go122
+        --region=asia-northeast2
+        --source=.
+        --entry-point=main
+        --trigger-http
+        --no-allow-unauthenticated
+        --set-env-vars GCP_PROJECT=${{ vars.PROJECT_ID }}
+        --run-service-account ${{ vars.IAM_ID }}@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
