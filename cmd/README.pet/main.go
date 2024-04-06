@@ -3,8 +3,8 @@ package main
 import (
 	"net/http" // httpパッケージをインポート
 
+	"README.pet/pkg"
 	"github.com/gin-gonic/gin"
-	"pkg/generate-svg"
 )
 
 func main() {
@@ -22,7 +22,7 @@ func main() {
 		c.Header("Content-Type", "image/svg+xml")
 
 		// SVGを返す
-		svg := generateSVG()
+		svg := pkg.GenerateSVG(6)
 		c.String(http.StatusOK, svg)
 	})
 	r.Run()
