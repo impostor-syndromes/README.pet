@@ -1,0 +1,1 @@
+[![Deploy Cloud Functions](https://github.com/impostor-syndromes/README.pet/actions/workflows/deploy-cloudfunctions.yml/badge.svg)](https://github.com/impostor-syndromes/README.pet/actions/workflows/deploy-cloudfunctions.yml)
