@@ -3,7 +3,6 @@ package pkg
 import (
 	"context"
 	"encoding/json"
-	"log"
 
 	"github.com/machinebox/graphql"
 
@@ -25,7 +24,7 @@ type ResponseStruct struct {
 	} `json:"user"`
 }
 
-func FetchGithub(account string) string {
+func FetchContributions(account string) (string, error) {
 	client := graphql.NewClient("https://api.github.com/graphql")
 
 	req := graphql.NewRequest(`
@@ -57,13 +56,13 @@ func FetchGithub(account string) string {
 
 	var respData ResponseStruct
 	if err := client.Run(ctx, req, &respData); err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 
 	response, err := json.Marshal(respData)
 	if err != nil {
-		log.Fatal(err)
+		return "", err
 	}
 
-	return string(response)
+	return string(response), nil
 }
