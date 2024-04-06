@@ -52,8 +52,9 @@ func FetchContributions(account string) (string, error) {
 	req.Var("endDate", endDate)
 
 	token := config.LoadToken()
-
-	req.Header.Set("Authorization", "Bearer "+token)
+	if token != "" {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
 
 	ctx := context.Background()
 

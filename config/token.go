@@ -2,7 +2,6 @@ package config
 
 import (
 	"encoding/json"
-	"log"
 	"os"
 )
 
@@ -14,13 +13,13 @@ func LoadToken() string {
 	var config Config
 	file, err := os.Open("config/token.json")
 	if err != nil {
-		log.Fatal(err)
+		return ""
 	}
 	defer file.Close()
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&config)
 	if err != nil {
-		log.Fatal(err)
+		return ""
 	}
 	return config.Token
 }
