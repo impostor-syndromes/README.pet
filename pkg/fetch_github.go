@@ -2,34 +2,68 @@ package pkg
 
 import (
 	"context"
-	"fmt"
-	"net/http"
+	"encoding/json"
+	"log"
 
-	"github.com/google/go-github/v61/github"
-	"golang.org/x/oauth2"
+	"github.com/machinebox/graphql"
+
+	"README.pet/config"
 )
 
-func FetchGithub(account string) string {
-	client := github.NewClient(nil)
-	ctx := context.Background()
-
-	_, _, err := client.Organizations.List(ctx, account, nil)
-
-	opt := &github.RepositoryListByUserOptions{Type: "public"}
-	repos, _, err := client.Repositories.ListByUser(ctx, account, opt)
-	if err != nil {
-		return err.Error()
-	}
-
-	return fmt.Sprintln(repos)
+type ResponseStruct struct {
+	User struct {
+		ContributionsCollection struct {
+			ContributionCalendar struct {
+				Weeks []struct {
+					ContributionDays []struct {
+						ContributionCount int    `json:"contributionCount"`
+						Date              string `json:"date"`
+					} `json:"contributionDays"`
+				} `json:"weeks"`
+			} `json:"contributionCalendar"`
+		} `json:"contributionsCollection"`
+	} `json:"user"`
 }
 
-func oauth_token(token string) *http.Client {
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: token},
-	)
-	tc := oauth2.NewClient(oauth2.NoContext, ts)
+func FetchGithub(account string) string {
+	client := graphql.NewClient("https://api.github.com/graphql")
 
-	return tc
+	req := graphql.NewRequest(`
+		query($userName:String!, $startDate:DateTime!, $endDate:DateTime!) {
+			user(login: $userName){
+			contributionsCollection(from: $startDate, to: $endDate) {
+				contributionCalendar {
+				weeks {
+					contributionDays {
+					contributionCount
+					date
+					}
+				}
+				}
+			}
+			}
+		}
+	`)
 
+	req.Var("userName", account)
+	req.Var("startDate", "2024-04-01T00:00:00Z")
+	req.Var("endDate", "2024-04-07T23:59:59Z")
+
+	token := config.LoadToken()
+
+	req.Header.Set("Authorization", "Bearer "+token)
+
+	ctx := context.Background()
+
+	var respData ResponseStruct
+	if err := client.Run(ctx, req, &respData); err != nil {
+		log.Fatal(err)
+	}
+
+	response, err := json.Marshal(respData)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return string(response)
 }
