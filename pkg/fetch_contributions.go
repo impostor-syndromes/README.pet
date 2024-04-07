@@ -3,11 +3,10 @@ package pkg
 import (
 	"context"
 	"errors"
+	"os"
 	"time"
 
 	"github.com/machinebox/graphql"
-
-	"README.pet/config"
 )
 
 // APIから取得する日数を設定
@@ -57,7 +56,7 @@ func FetchContributions(account string) ([]int, error) {
 	req.Var("endDate", endDate)
 
 	// トークンが設定されている場合はリクエストヘッダに追加
-	token := config.LoadToken()
+	token := os.Getenv("GITHUB_TOKEN")
 	if token != "" {
 		req.Header.Set("Authorization", "Bearer "+token)
 	}
