@@ -41,7 +41,7 @@ jobs:
         --runtime=go122
         --region=asia-northeast2
         --source=.
-        --entry-point=httpclient
+        --entry-point=HttpClient
         --trigger-http
         --allow-unauthenticated
         --set-env-vars GCP_PROJECT=${{ vars.PROJECT_ID }}
