@@ -27,7 +27,6 @@ jobs:
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
         # ex) 'my-service-account@my-project.iam.gserviceaccount.com'
         service_account: gha-cloudfunctions-deploy@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
-
     - name: 'Set up Cloud SDK'
       # gcloudコマンドを実行するためにCloud SDKを準備する
       uses: 'google-github-actions/setup-gcloud@v2'
@@ -42,8 +41,9 @@ jobs:
         --runtime=go122
         --region=asia-northeast2
         --source=.
-        --entry-point=main
+        --entry-point=httpclient
         --trigger-http
-        --no-allow-unauthenticated
+        --allow-unauthenticated
         --set-env-vars GCP_PROJECT=${{ vars.PROJECT_ID }}
         --run-service-account ${{ vars.IAM_ID }}@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
+
