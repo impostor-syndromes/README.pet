@@ -10,7 +10,7 @@ import (
 )
 
 // APIから取得する日数を設定
-const validDays = 10
+const validDays = 2
 
 // APIから取得するデータの構造体
 type ResponseStruct struct {
