@@ -5,9 +5,11 @@ services:
     build:
       context: .
       dockerfile: build/Dockerfile
+    restart: always
     volumes:
       - ./api:/app
     ports:
       - "8080:8080"
     environment:
       - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - FUNCTION_TARGET=apiMain
