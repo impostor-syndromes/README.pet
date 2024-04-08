@@ -5,7 +5,6 @@ import (
 )
 
 func GenerateSVG(number int) string {
-	number = 11
 	dishImage, charaImage, effectImage := chooseImages(number)
 
 	const template = `<svg xmlns="http://www.w3.org/2000/svg">
