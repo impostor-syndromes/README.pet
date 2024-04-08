@@ -5,8 +5,7 @@ import (
 )
 
 func GenerateSVG(number int) string {
-	dishImage := "dish.png"
-	charaImage := "neko.png"
+	dishImage, charaImage := chooseImages(number)
 
 	const template = `<svg xmlns="http://www.w3.org/2000/svg">
 	<!-- 外側の丸みのある長方形 -->
@@ -25,4 +24,20 @@ func GenerateSVG(number int) string {
   </svg>`
 	svg := fmt.Sprintf(template, dishImage, number, charaImage)
 	return svg
+}
+
+func chooseImages(number int) (string, string) {
+	if number == 0 {
+		// 0コミット
+		return "empty.png", "neko_cry.png"
+	} else if number <= 5 {
+		// 1~5コミット
+		return "small.png", "neko_normal.png"
+	} else if number <= 10 {
+		// 6~10コミット
+		return "medium.png", "neko_smile.png"
+	} else {
+		// 11コミット以上
+		return "large.png", "neko_happy.png"
+	}
 }
