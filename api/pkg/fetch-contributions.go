@@ -78,7 +78,7 @@ func FetchContributions(account string) ([]int, error) {
 
 	// 取得した値の数が合っているか検証
 	if len(contributions) != validDays {
-		return nil, errors.New("contributions count do not match")
+		return nil, errors.New("contributions count do not match aaaaaaaaa")
 	}
 
 	return contributions, nil

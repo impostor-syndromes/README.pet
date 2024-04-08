@@ -2,7 +2,9 @@ FROM golang:1.22.2-alpine3.19
 
 WORKDIR /app
 
-COPY . .
+COPY api .
+
+RUN ls
 
 RUN apk update && apk --no-cache add git && \
     go mod tidy && \

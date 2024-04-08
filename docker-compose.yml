@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: build/Dockerfile
     volumes:
-      - .:/app
+      - ./api:/app
     ports:
       - "8080:8080"
     environment:

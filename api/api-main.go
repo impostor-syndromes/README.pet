@@ -1,23 +1,29 @@
-package main
+package api
 
 import (
 	"net/http" // httpパッケージをインポート
 
-	"README.pet/pkg"
+	"README.pet/api/pkg"
 	"github.com/gin-gonic/gin"
+
+	"github.com/GoogleCloudPlatform/functions-framework-go/functions"
 )
 
-func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
+func init() {
+	functions.HTTP("apiMain", apiMain)
+}
+
+func apiMain(w http.ResponseWriter, r *http.Request) {
+	router := gin.Default()
+	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
 		})
 	})
 	// 静的ファイルの配信
-	r.Static("/assets", "./assets")
+	router.Static("/assets", "./assets")
 
-	r.GET("/show-svg", func(c *gin.Context) {
+	router.GET("/show-svg", func(c *gin.Context) {
 		username := c.Query("username")
 
 		contributions, err := pkg.FetchContributions(username)
@@ -33,5 +39,5 @@ func main() {
 		svg := pkg.GenerateSVG(contributions[0])
 		c.String(http.StatusOK, svg)
 	})
-	r.Run()
+	router.ServeHTTP(w, r)
 }
