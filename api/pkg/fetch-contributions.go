@@ -28,7 +28,7 @@ type ResponseStruct struct {
 	} `json:"user"`
 }
 
-func FetchContributions(account string) ([]int, error) {
+func FetchContributions(username string) ([]int, error) {
 	client := graphql.NewClient("https://api.github.com/graphql")
 
 	req := graphql.NewRequest(`
@@ -51,7 +51,7 @@ func FetchContributions(account string) ([]int, error) {
 	// 取得開始日の日付と現在の時刻を取得
 	startDate, endDate := getValidDates()
 
-	req.Var("userName", account)
+	req.Var("userName", username)
 	req.Var("startDate", startDate)
 	req.Var("endDate", endDate)
 
@@ -78,7 +78,7 @@ func FetchContributions(account string) ([]int, error) {
 
 	// 取得した値の数が合っているか検証
 	if len(contributions) != validDays {
-		return nil, errors.New("contributions count do not match aaaaaaaaa")
+		return nil, errors.New("contributions count do not match")
 	}
 
 	return contributions, nil
