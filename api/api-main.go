@@ -2,6 +2,7 @@ package api
 
 import (
 	"net/http" // httpパッケージをインポート
+	"strconv"
 
 	"README.pet/api/pkg"
 	"github.com/gin-gonic/gin"
@@ -37,6 +38,22 @@ func apiMain(w http.ResponseWriter, r *http.Request) {
 
 		// SVGを返す
 		svg := pkg.GenerateSVG(contributions[0])
+		c.String(http.StatusOK, svg)
+	})
+
+	router.GET("/view-sample", func(c *gin.Context) {
+		contributionsStr := c.Query("contributions")
+
+		contributionsNum, err := strconv.Atoi(contributionsStr)
+		if err != nil {
+			c.String(http.StatusBadRequest, err.Error())
+			return
+		}
+		// Content-Typeを設定
+		c.Header("Content-Type", "image/svg+xml")
+
+		// SVGを返す
+		svg := pkg.GenerateSVG(contributionsNum)
 		c.String(http.StatusOK, svg)
 	})
 	router.ServeHTTP(w, r)
