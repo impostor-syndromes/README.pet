@@ -14,7 +14,7 @@ READMEにこちらコードを追加してください！
 
 | コミット数 | 状態 |
 |--------|--------|
-| 0 | ![readme.pet](https://readme.pet/view-sample?contributions=0) |
-| 1〜5 | ![readme.pet](https://readme.pet/view-sample?contributions=1) |
-| 6〜10 | ![readme.pet](https://readme.pet/view-sample?contributions=6) |
-| 11〜 | ![readme.pet](https://readme.pet/view-sample?contributions=11) | 
+| 0 | ![readme.pet](https://readme.pet/view-sample?contributions=0&param=1) |
+| 1〜5 | ![readme.pet](https://readme.pet/view-sample?contributions=1&param=1) |
+| 6〜10 | ![readme.pet](https://readme.pet/view-sample?contributions=6&param=1) |
+| 11〜 | ![readme.pet](https://readme.pet/view-sample?contributions=11&param=1) | 
