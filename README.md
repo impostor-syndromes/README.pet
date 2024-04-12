@@ -6,9 +6,11 @@
 
 ## 使い方
 
-READMEにこちらコードを追加してください！
+READMEに以下のコードを記述して、`username=`のところに自分のユーザー名を入力してください！
 
-```![readme.pet](https://readme.pet/api?username={username})```
+```
+![readme.pet](https://readme.pet/api?username={username})
+```
 
 ## 表示例
 
