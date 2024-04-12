@@ -37,7 +37,7 @@ func apiMain(w http.ResponseWriter, r *http.Request) {
 		c.Header("Content-Type", "image/svg+xml")
 
 		// SVGを返す
-		svg := pkg.GenerateSVG(contributions[0])
+		svg := pkg.GenerateSVG(contributions[1])
 		c.String(http.StatusOK, svg)
 	})
 
