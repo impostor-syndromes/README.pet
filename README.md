@@ -8,13 +8,13 @@
 
 READMEにこちらコードを追加してください！
 
-```![readme.pet](http://readme.pet/api/?username={username})```
+```![readme.pet](https://readme.pet/api?username={username})```
 
 ## 表示例
 
 | コミット数 | 状態 |
 |--------|--------|
-| 0 | ![readme.pet](http://readme.pet/view-sample?contributions=0) |
-| 1〜5 | ![readme.pet](http://readme.pet/view-sample?contributions=1) |
-| 6〜10 | ![readme.pet](http://readme.pet/view-sample?contributions=6) |
-| 11〜 | ![readme.pet](http://readme.pet/view-sample?contributions=11) | 
+| 0 | ![readme.pet](https://readme.pet/view-sample?contributions=0) |
+| 1〜5 | ![readme.pet](https://readme.pet/view-sample?contributions=1) |
+| 6〜10 | ![readme.pet](https://readme.pet/view-sample?contributions=6) |
+| 11〜 | ![readme.pet](https://readme.pet/view-sample?contributions=11) | 
