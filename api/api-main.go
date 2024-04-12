@@ -24,7 +24,7 @@ func apiMain(w http.ResponseWriter, r *http.Request) {
 	// 静的ファイルの配信
 	router.Static("/assets", "./assets")
 
-	router.GET("/show-svg", func(c *gin.Context) {
+	router.GET("/api", func(c *gin.Context) {
 		username := c.Query("username")
 
 		contributions, err := pkg.FetchContributions(username)
