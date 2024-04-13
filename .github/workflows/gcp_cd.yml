@@ -21,9 +21,7 @@ jobs:
       name: 'Authenticate to Google Cloud'
       uses: 'google-github-actions/auth@v2'
       with:
-        # ex) workload_identity_provider: 'projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_ID }}
-        # ex) 'my-service-account@my-project.iam.gserviceaccount.com'
         service_account: gha-cloudfunctions-deploy@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
     
     - id: 'deploy'
