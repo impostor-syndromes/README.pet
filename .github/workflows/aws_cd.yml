@@ -1,5 +1,6 @@
-name: CD
+name: Deploy EC2
 on:
+  # 手動ormainブランチにpush時に実行
   workflow_dispatch:
   pull_request:
     branches:
@@ -8,22 +9,26 @@ on:
 
 jobs:
   deploy-job:
-    name: Deploy to EC2
     runs-on: 'ubuntu-latest'
     permissions:
       contents: 'read'
       id-token: 'write'
     
     steps:
-      - name: Configure AWS credentials
+      # ソースコードのチェックアウトをする
+      - uses: 'actions/checkout@v4'
+      
+      - id: 'auth'
+        name: 'Authenticate to AWS'
+        # IAM連携を利用してGitHub ActionsからAWSへ認証を行う
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "ap-northeast-3"
           
-      - name: Create CodeDeploy Deployment
-        id: deploy
+      - name: 'Deploy EC2 Using aws command'
+        # awsコマンドを利用してEC2をデプロイする
         run: |
           aws deploy create-deployment \
             --application-name "Prod_CD"\
