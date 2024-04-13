@@ -28,13 +28,13 @@ jobs:
         # ex) 'my-service-account@my-project.iam.gserviceaccount.com'
         service_account: gha-cloudfunctions-deploy@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
     
-    - name: 'Set up Cloud SDK'
-      # gcloudコマンドを実行するためにCloud SDKを準備する
-      uses: 'google-github-actions/setup-gcloud@v2'
+    - id: 'deploy'
+      name: 'Deploy Cloud Functions gen2 '
+      uses: 'google-github-actions/deploy-cloud-functions@v2'
       with:
-        version: '>= 363.0.0'
+        name: 'my-function'
+        runtime: 'nodejs20'
 
-    - name: 'Deploy Cloud Functions gen2 Using gcloud command'
-      # gcloudコマンドを利用してCloud Functionsをデプロイする
-      run: >-
-        gcloud info
+        # Example of using the output
+    - id: 'test'
+      run: 'curl "${{ steps.deploy.outputs.url }}"'
