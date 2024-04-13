@@ -46,5 +46,5 @@ jobs:
         --trigger-http
         --allow-unauthenticated
         --set-env-vars GCP_PROJECT=${{ vars.PROJECT_ID }}
-        --run-service-account ${{ vars.IAM_ID }}@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
+        --run-service-account gha-cloudfunctions-deploy@${{ vars.PROJECT_ID }}.iam.gserviceaccount.com
 
