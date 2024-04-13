@@ -41,7 +41,7 @@ jobs:
         --gen2
         --runtime=go122
         --region=asia-northeast2
-        --source=.
+        --source=./api
         --entry-point=HttpClient
         --trigger-http
         --allow-unauthenticated
