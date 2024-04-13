@@ -1,4 +1,5 @@
-[![Deploy Cloud Functions](https://github.com/impostor-syndromes/README.pet/actions/workflows/deploy-cloudfunctions.yml/badge.svg)](https://github.com/impostor-syndromes/README.pet/actions/workflows/deploy-cloudfunctions.yml)
+[![Deploy Cloud Functions](https://github.com/impostor-syndromes/README.pet/actions/workflows/gcp_cd.yml/badge.svg)](https://github.com/impostor-syndromes/README.pet/actions/workflows/gcp_cd.yml)
+[![Deploy EC2](https://github.com/impostor-syndromes/README.pet/actions/workflows/aws_cd.yml/badge.svg)](https://github.com/impostor-syndromes/README.pet/actions/workflows/aws_cd.yml)
 
 # README.pet
 ### Githubのプロフィール画面でペットを育ててみよう！！
