@@ -21,3 +21,7 @@ READMEに以下のコードを記述して、`username=`のところに自分の
 | 1〜5 | ![readme.pet](https://readme.pet/view-sample?contributions=1&param=1) |
 | 6〜10 | ![readme.pet](https://readme.pet/view-sample?contributions=6&param=1) |
 | 11〜 | ![readme.pet](https://readme.pet/view-sample?contributions=11&param=1) | 
+
+## プレゼンスライド
+
+[Canva](https://www.canva.com/design/DAGB-z6NkYA/SJMXYOCwxF9apw3jFqYXzw/view?utm_content=DAGB-z6NkYA&utm_campaign=designshare&utm_medium=link&utm_source=editor)
