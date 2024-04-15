@@ -35,6 +35,7 @@ func apiMain(w http.ResponseWriter, r *http.Request) {
 
 		// Content-Typeを設定
 		c.Header("Content-Type", "image/svg+xml")
+		c.Header("Cache-Control", "no-cache")
 
 		// SVGを返す
 		svg := pkg.GenerateSVG(contributions[1])
